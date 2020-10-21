@@ -25,11 +25,11 @@ This document provides a brief tutorial to using the `twangContinous` package to
 
 Investigators may be interested in examining the effect of a continuous exposure on an outcome. For example, the effect of trauma symptoms on substance use may be of interest where trauma symptoms are measured using the trauma symptom scale (TSS). Other examples include the effect of a dose or the shape of a dose response curve.
 
-Let $A$ represent the continuous exposure or treatment variable, $Y$ the outcome, and $X$ the pretreatment covariates. Define $Y_i(a)$ as the potential outcome for individual $i$ if they receive treatment level $A=a$. Further assume that $Y_i(a)$ is well-defined for $a \in \mathcal{A}$ where $\mathcal{A}$ is a continuous domain. The goal is to estimate $E[Y(a)]$. The ignorability assumption is similar to the binary exposure or treatment case,
+Let $A$ represent the continuous exposure or treatment variable, $Y$ the outcome, and $X$ the pretreatment covariates. Define $Y_i(a)$ as the potential outcome for individual $i$ if they receive treatment level $A=a$. Further assume that $Y_i(a)$ is well-defined for $a \in \mathcal{A}$ where $\mathcal{A}$ is a continuous domain. The goal is to estimate $E[Y(a)]$, the mean effect of exposure $A=a$ on the outcome. The ignorability assumption is similar to the binary exposure or treatment case,
 \[
  f(a|Y(a), x) = f(a|x)
 \]
-where $f(a|\cdot)$ is the conditional probability density of $A$. Instead of conditioning on a potentially high-dimensional $X$, it is sufficient to condition on the GPS (Imai & van Dyk, 2004), defined as $f_{A|X}(a|x)$, the conditional density function for $A$ given $X$ (all of the observed potential confounders). Similar to the binary exposure case, there is a positivity assumption, such that all individuals have a non-zero probability of having received all possible values of the continuous exposure. In addition, an extension of the stable unit treatment value assumption (SUTVA) for continuous exposure settings (Hirano & Imbens, 2004; Imai & van Dyk, 2004) implies that there is no interference between units. Thus, propensity scores for continuous exposures are a fairly straightforward extension of binary exposures although they have not been nearly as popular in applications.
+where $f(a|\cdot)$ is the conditional probability density of $A$. Instead of conditioning on a potentially high-dimensional $X$, that is $f_{A|X}(a|x)$, the conditional density function for $A$ given $X$ (all of the observed potential confounders), it is sufficient to condition on the GPS (Imai & van Dyk, 2004). Similar to the binary exposure case, there is a positivity assumption, such that all individuals have a non-zero probability of having received all possible values of the continuous exposure. In addition, an extension of the stable unit treatment value assumption (SUTVA) for continuous exposure settings (Hirano & Imbens, 2004; Imai & van Dyk, 2004) implies that there is no interference between units. Thus, propensity scores for continuous exposures are a fairly straightforward extension of binary exposures although they have not been nearly as popular in applications.
 
 Once estimated, the stabilized inverse of the GPS may be used to weight the outcome model where for the $i^{th}$ subject, the weight is given as
 \[
@@ -41,7 +41,7 @@ for $i=1,\ldots,N$ individuals (Robins & Hernan, 2000). As in the case for binar
   \widehat{A_i})^2}{2\widehat{\sigma}^2} \right\}.
 \]
 
-As with binary exposures, a non-parametric model, such as GBM, is more flexible and potentially advantageous in that non-linearities and interactions among potential confounders up to a level specified by the user (e.g., all 3-way interactions) may be automatically included (McCaffrey, Ridgeway, & Morral, 2004). GBM allows highly correlated confounders (i.e., predictors) and reduces bias and variance of causal effect estimates in comparison to parametric models (Lee, Lessler, & Stuart, 2010). Zhu, Coffman, & Ghosh (2015) showed that GBMs perform well for estimating the GPS for a continuous exposure just as they do for binary exposures. Their work directly used the `gbm` R package but we have now integrated the function within the `twang` R package to take advantage of the user-friendliness of `twang` (e.g., balance assessment plots).
+However, as with binary exposures, a non-parametric model, such as GBM, is more flexible and potentially advantageous in that non-linearities and interactions among potential confounders up to a level specified by the user (e.g., all 3-way interactions) may be automatically included (McCaffrey, Ridgeway, & Morral, 2004). GBM allows highly correlated confounders (i.e., predictors) and reduces bias and variance of causal effect estimates in comparison to parametric models (Lee, Lessler, & Stuart, 2010). Zhu, Coffman, & Ghosh (2015) showed that GBMs perform well for estimating the GPS for a continuous exposure just as they do for binary exposures. Their work directly used the `gbm` R package but we have now integrated the function within the `twang` R package to take advantage of the user-friendliness of `twang` (e.g., balance assessment plots).
 
 GBM requires specification of a stopping criterion. In binary propensity score estimation, the average or maximum absolute standardized weighted mean difference (i.e., effect size) between the treatment groups on the confounders or the average or maximum Kolmogorov-Smirnov (KS) statistic is used. For continuous exposures, the average or maximum absolute Pearson correlation between the exposure and each confounder is an obvious choice given that the goal is that the exposure should be unrelated to the covariates in the weighted sample. Thus, balance can be assessed by computing Pearson correlations between each of the potential confounders and the exposure. Zhu et al. (2015) showed that 0.1 is a reasonable cutoff for this metric.
 
@@ -64,7 +64,7 @@ library(twangContinuous)
 set.seed(1234)
 ```
 
-We will use the synthetic data set included with the package and call it `dat` to illustrate the use of the package. In this data set, `tss_0` is the continuous exposure and represents a count of trauma symptoms, `sfs8p_3`, is the outcome variable and measures substance frequency at 3-month follow-up, and `sfs8p_0` - the substance frequency at baseline, `treat` - the treatment group, and `sati_0` - substance abuse treatment index at baseline are covariates. These covariates are potential confounders of `tss_0` and `sfs8p_3` and were generated to mimic the confounders in the real dataset. Load the data using the following code.
+We will use the synthetic data set included with the package and call it `dat` to illustrate the use of the package. In this data set, `tss_0` is the continuous exposure and represents a count of trauma symptoms and `sfs8p_3` is the outcome variable and measures substance use frequency at 3-month follow-up. The following baseline covariates are included in the propensity score model: substance use frequency scale, `sfs8p_0`, treatment group, `treat`, whether they are in recovery, `recov_0`, whether they primarily use opioids vs. alcohol/marijuana vs. other drugs, `subsgrps_n`, the substance problem scale (past month), `sp_sm_0`, and substance abuse treatment index, `sati_0`. These covariates are potential confounders of `tss_0` and `sfs8p_3` and were generated to mimic the confounders in the real dataset. Load the data using the following code:
 
 ```{r, message=FALSE}
 data(dat)
@@ -72,15 +72,17 @@ data(dat)
 
 R can read data from many other sources. The manual [R Data Import/Export](http://cran.r-project.org/doc/manuals/R-data.pdf) describes those options in detail.
 
-The function `ps.cont()` is the main function in `twangContinuous`. Enter the formula using the standard R formula notation (e.g., `tss_0 ~ sfs8p_0 + sati_0 + treat`) where the continuous exposure variable is on the left hand side of `~` and the confounders are on the right hand side. Next, use the `data` argument to specify the name of the data set.
+The function `ps.cont()` is the main function in `twangContinuous`. Enter the formula using the standard R formula notation (e.g., `tss_0 ~ sfs8p_0 + sati_0 + treat`) where the continuous exposure variable is on the left hand side of `'~'` and the confounders are on the right hand side. Next, use the `data` argument to specify the name of the data set.
 
-The function includes several optional arguments: `n.trees`, `interaction.depth`, and `shrinkage` are parameters for the `gbm` model and `verbose` and `sampw`.
+The function includes several optional arguments: `n.trees`, `interaction.depth`, and `shrinkage` are parameters for the `gbm` model.
 
 `n.trees` - the maximum number of iterations that `gbm` will run. `ps.cont()` will issue a warning if the estimated optimal number of iterations is too close to the bound selected in this argument because it indicates that balance may improve if more complex models (i.e., those with more trees) are considered. The user should increase `n.trees` or decrease `shrinkage` (see below) if this warning appears. The default number of trees is set to 10000.
 
 `interaction.depth` - controls the level of interactions allowed in the GBM. The default is 3 (i.e., up to three-way interactions among the covariates are allowed) and we typically use the default in our analyses.
 
 `shrinkage` - controls the amount of shrinkage. Small values such as 0.005 or 0.001 yield smooth fits but require greater values of `n.trees` to achieve adequate fits. Computational time increases inversely with `shrinkage` argument. The default value is set to 0.01.
+
+Two other optional arguments to `ps.cont()` are `verbose` and `sampw`.
 
 `sampw` - optional argument and by default is set to NULL. If there are survey weights, they can be included using the `sampw` argument.
 
@@ -98,9 +100,9 @@ test.mod <- ps.cont(tss_0 ~ sfs8p_0 + sati_0 + sp_sm_0
                     verbose = FALSE)
 ```
 
-For those familiar with the `ps()` function in `twang`, unlike the `ps()` function in `twang`, `ps.cont()` does not have arguments for `estimand` or `perm.test.iters` as these are not relevant for the continuous exposure context.
+For those familiar with the `ps()` function in `twang`, unlike the `ps()` function, `ps.cont()` does not have arguments for `estimand` or `perm.test.iters`.
 
-The only stop method currently available is the average absolute weighted correlation and thus it is set as the default. At this point in development, only the average absolute weighted correlation has been throughly tested as a stopping criteria (see Zhu et al., 2015). The stop method specifies a set (or sets) of rules and measures for assessing the balance on the pretreatment covariates. The `ps.cont()` function selects the optimal number of GBM iterations to minimize the correlation between the continuous exposure variable and each of the pretreatment covariates. To summarize the correlations across all of the covariates, we first take the absolute value of the correlations and then take the average across all of the covariates. Future developments will allow the user to specify the maximum absolute weighted correlation or the root mean squared weighted correlation using the argument `stop.method` (but at present this cannot be changed). 
+The only stop method currently available is the average absolute weighted correlation, and thus, it is set as the default. At this point in development, only the average absolute weighted correlation has been throughly tested as a stopping criteria (see Zhu et al., 2015). The stop method specifies a set (or sets) of rules and measures for assessing the balance on the pretreatment covariates. The `ps.cont()` function selects the optimal number of GBM iterations to minimize the correlation between the continuous exposure variable and each of the pretreatment covariates. To summarize the correlations across all of the covariates, we first take the absolute value of the correlations and then take the average across all of the covariates. Future developments will allow the user to specify the maximum absolute weighted correlation or the root mean squared weighted correlation using the argument `stop.method` (but at present this cannot be changed). 
 
 ## Assessing Diagnostics
 
@@ -173,7 +175,7 @@ outcome.model <- svyglm(sfs8p_3 ~ tss_0, design = design.ps,
 summary(outcome.model)
 ```
 
-The results indicate that for each additional trauma symptom, substance frequency increases by 0.002, which is not statistically significant, $t=0.04, p = .968$.
+The results indicate that for each additional trauma symptom, substance use frequency increases by 0.002, which is not statistically significant, $t=0.04, p = .968$.
 
 ## References
 

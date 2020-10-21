@@ -57,12 +57,18 @@ A subset of measures from the Global Appraisal of Individual Needs biopsychosoci
     \item{\code{dss9_0}}{depressive symptom scale - baseline}
     \item{\code{mhtrt_0}}{mental health treatment in the past 90 days - baseline}
     \item{\code{sati_0}}{substance abuse treatment index - baseline}
+    \item{\code{sp_sm_0}}{substance problem scale (past month) - baseline}
+    \item{\code{sp_sm_3}}{substance problem scale (past month) - 3 months}
+    \item{\code{sp_sm_6}}{substance problem scale (past month) - 6 months}
+    \item{\code{gvs}}{General Victimization Scale}
+    \item{\code{ers21_0}}{Environmental Risk Scale - baseline}
     \item{\code{ada_0}}{adjusted days abstinent (any in past 90) - baseline}
     \item{\code{ada_3}}{adjusted days abstinent (any in past 90) - 3 months}
     \item{\code{ada_6}}{adjusted days abstinent (any in past 90) - 6 months}
     \item{\code{recov_0}}{in recovery - baseline}
     \item{\code{recov_3}}{in recovery - 3 months}
     \item{\code{recov_6}}{in recovery - 6 months}
+    \item{\code{subsgrps_n}}{primarily opioid using youth vs alcohol/marijuana using youth vs                             other}
   }
 }
 \source{

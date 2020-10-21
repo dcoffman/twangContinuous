@@ -40,7 +40,8 @@
 #'     - `n` The number of subjects.
 #'     - `max.wcor` The largest weighted correlation across the covariates.
 #'     - `mean.wcor` The average weighted correlation across the covariates.
-#'     - `rms.wcor` The root mean squared weighted correlation across the covariates.
+#'     - `rms.wcor` The root mean square of the absolute weighted correlations across the
+#'        covariates.
 #'     - `bal.tab` a (potentially large) table summarizing the quality of the
 #'       weights for balancing the distribution of the pretreatment covariates.
 #'       This table is best extracted using the
