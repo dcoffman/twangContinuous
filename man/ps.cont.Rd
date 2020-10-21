@@ -49,9 +49,9 @@ more details. Default: 1.0.}
 the progress of the fitting. Default: `FALSE`.}
 
 \item{stop.method}{A method or methods of measuring and summarizing balance
- across pretreatment variables. Current options are `wcor`, the weighted Pearson
+across pretreatment variables. Current options are `wcor`, the weighted Pearson
 correlation, summarized by using the mean across the pretreatment variables.
- Default: `wcor`.}
+Default: `wcor`.}
 
 \item{treat.as.cont}{.}
 
@@ -69,7 +69,8 @@ Returns an object of class `ps.cont`, a list containing
     - `n` The number of subjects.
     - `max.wcor` The largest weighted correlation across the covariates.
     - `mean.wcor` The average weighted correlation across the covariates.
-    - `rms.wcor` The root mean squared weighted correlation across the covariates.
+    - `rms.wcor` The root mean square of the absolute weighted correlations across the
+       covariates.
     - `bal.tab` a (potentially large) table summarizing the quality of the
       weights for balancing the distribution of the pretreatment covariates.
       This table is best extracted using the
