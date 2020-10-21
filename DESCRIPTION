@@ -3,10 +3,10 @@ Type: Package
 Date: 2020-10-20
 Title: Toolkit for Weighting and Analysis of Nonequivalent Groups - Continuous Exposures
 Version: 0.0.1
-Author: Donna L. Coffman, Noah Greifer, Brian Vegetabile, Others
+Author: Donna L. Coffman, Brian Vegetabile
 Maintainer: Donna L. Coffman <donna.coffman@gmail.com>
 Description: Provides functions for propensity score
-        estimating and weighting for continuous exposures.
+        estimation and weighting for continuous exposures.
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
