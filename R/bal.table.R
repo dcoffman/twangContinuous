@@ -8,7 +8,6 @@
 
 bal.table <-
   function(x, digits = 3, ...) {
-    #bal.tab <- lapply(x$desc, function(x){return(round(x$bal.tab$results, digits))})
     unw <- round(x$desc$unw$bal.tab$results, digits)
     wcor <- round(x$desc$AAC$bal.tab$results, digits)
     bal.tab <- cbind(unw, wcor)
