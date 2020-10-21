@@ -1,0 +1,19 @@
+Package: twangContinuous
+Type: Package
+Date: 2020-10-20
+Title: Toolkit for Weighting and Analysis of Nonequivalent Groups - Continuous Exposures
+Version: 0.0.1
+Author: Donna L. Coffman, Noah Greifer, Brian Vegetabile, Others
+Maintainer: Donna L. Coffman <donna.coffman@gmail.com>
+Description: Provides functions for propensity score
+        estimating and weighting for continuous exposures.
+License: GPL (>= 2)
+Encoding: UTF-8
+LazyData: true
+VignetteBuilder: knitr
+Imports: Rcpp (>= 0.12.19),
+         lattice (>= 0.20-35),
+         gbm (>= 2.1.3),
+         survey, xtable
+Suggests: knitr, rmarkdown
+RoxygenNote: 7.1.1
