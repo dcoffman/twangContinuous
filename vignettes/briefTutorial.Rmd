@@ -94,7 +94,7 @@ In the example below, because the values of `verbose`, `shrinkage`, `n.trees`, a
 test.mod <- ps.cont(tss_0 ~ sfs8p_0 + sati_0 + sp_sm_0 
                             + recov_0 + subsgrps_n + treat,
                     data=dat,
-                    n.trees = 10000,
+                    n.trees = 5000,
                     shrinkage = 0.01,
                     interaction.depth = 3,
                     verbose = FALSE)
