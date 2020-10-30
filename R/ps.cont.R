@@ -76,6 +76,14 @@
 #'
 #' @export
 
+# suppressBindingNotes <- function(variablesMentionedInNotes) {
+#   for(variable in variablesMentionedInNotes) {
+#     assign(variable, NULL, envir = .GlobalEnv)
+#   }
+# }
+#
+# suppressBindingNotes(c("sampw","alert","sampW"))
+
 ps.cont <- function(formula,
                     data,                          # data
                     n.trees=10000,                 # gbm options
@@ -88,6 +96,9 @@ ps.cont <- function(formula,
                     stop.method = "wcor",
                     treat.as.cont = FALSE, ...){
 
+  type <- alert <- NULL
+
+  if (missing(formula)) stop("A formula must be supplied.", call. = FALSE)
   formula <- formula(formula)
 
   terms <- match.call()
@@ -110,10 +121,14 @@ ps.cont <- function(formula,
   if(length(unique(treat.var)) < 5 & treat.as.cont == FALSE)
     stop('Please supply a continuous treatment variable');
 
-  if (is.null(sampw)) data$sampW <- rep(1, nrow(data))
-  else data$sampW <- sampw
+  if (any(is.na(treat.var))) stop("Missingness is not allowed in the treatment variable.", call. = FALSE)
+
+  if (is.null(sampw)) sampW <- rep(1, length(treat.var)) else sampW <- sampw
 
   designX <- model.matrix(formula, data=mf)
+
+  new.data <- data.frame(mf = mf, sampW =sampW)
+  names(new.data) <- c(names(mf), "sampW")
 
   #######
   # all this is just to extract the variable names
@@ -141,7 +156,7 @@ ps.cont <- function(formula,
   # p.s        <- data.frame(matrix(NA_real_, nrow=nrow(data),
   #                                 ncol=length(stop.method)))
   # names(p.s) <- stop.method.names
-  w          <- data.frame(matrix(NA_real_, nrow=nrow(data),
+  w          <- data.frame(matrix(NA_real_, nrow=nrow(new.data),
                                   ncol=length(stop.method)))
   names(w)   <- stop.method.names
 
@@ -151,7 +166,7 @@ ps.cont <- function(formula,
   if(verbose) cat("Fitting gbm model\n")
 
   gbm_mod <- gbm::gbm(formula,
-                      data = data,
+                      data = new.data,
                       weights=sampW,
                       shrinkage = shrinkage,
                       interaction.depth = interaction.depth,
@@ -165,26 +180,35 @@ ps.cont <- function(formula,
 
   if(verbose) cat("Diagnosis of unweighted analysis\n")
 
-  desc$unw <- desc.wts.cont(treat.var=treat.var, covs=designX, w=data$sampW)
+  desc$unw <- desc.wts.cont(treat.var=treat.var,
+                            covs=designX,
+                            w=sampW)
 
-  balance <- matrix(NA, ncol = length(stop.method), nrow = 25)
+
+  if (verbose) cat("Estimating marginal density of the treatment ")
+
+  num.mod <- lm(treat.var ~ 1, data=new.data, weights=sampW)
+  ps.num <- dnorm(num.mod$residuals, 0, sd=summary(num.mod)$sigma)
 
   if(verbose) cat("Optimizing stopping rule\n")
 
-  num.mod <- lm(treat.var ~ 1, data=data, weights=data$sampW)
-  ps.num <- dnorm(num.mod$residuals, 0, sd=summary(num.mod)$sigma)
-
   # get optimal number of iterations
   # Step #1: evaluate at 25 equally spaced points
-  iters <- round(seq(1, gbm_mod$n.trees, length=25))
+  #iters <- round(seq(1, gbm_mod$n.trees, length=25))
+  #balance <- matrix(NA, ncol = length(stop.method), nrow = 25)
+
+  nintervals <- round(1+sqrt(2*n.trees))
+  iters <- round(seq(1, n.trees, length = nintervals))
   bal <- rep(0, length(iters))
+  balance <- matrix(NA, ncol = length(stop.method), nrow = nintervals,
+                    dimnames = list(iters, stop.method))
 
   for (j in 1:length(iters)) {
 
-    bal[j] <- aac(iters[j], data = data, treat.var = treat.var, covs = designX,
+    bal[j] <- aac(iters[j], data = new.data, treat.var = treat.var, covs = designX,
                               ps.model = gbm_mod,
                               ps.num = ps.num,
-                              sampw = data$sampW)
+                              sampw = sampW)
 
     balance[,1] <- bal #right now there is only one stop method
   }
@@ -196,11 +220,11 @@ ps.cont <- function(formula,
 
   # Step #3: refine the minimum by searching with the identified interval
 
-  opt <- optimize(aac, interval = iters[interval], data = data,
+  opt <- optimize(aac, interval = iters[interval], data = new.data,
                   treat.var = treat.var, covs = designX,
                   ps.model = gbm_mod,
                   ps.num = ps.num,
-                  sampw = data$sampW, tol = .Machine$double.eps)
+                  sampw = sampW, tol = .Machine$double.eps)
 
   if(verbose) cat("Optimized at",round(opt$minimum),"\n")
   if(gbm_mod$n.trees-opt$minimum < 100)
@@ -216,7 +240,7 @@ ps.cont <- function(formula,
 
   ps.den <- dnorm(treat.var, mean=preds, sd=sd(treat.var - preds))
   w <- ps.num/ps.den
-  w <- w * data$sampW
+  w <- w * sampW
 
 
 ######################
@@ -270,7 +294,7 @@ ps.cont <- function(formula,
                  ps.den     = ps.den,
                  ps.num     = ps.num,
                  w          = w,
-                 sampw      = data$sampW,
+                 sampw      = sampW,
                  datestamp  = date(),
                  parameters = terms,
                  alerts     = alert,
