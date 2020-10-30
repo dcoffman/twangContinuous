@@ -21,4 +21,3 @@ make_cont_wts <- function(ta, preds){
 }
 
 inv_logit <- function(x) {exp(x) / (1 + exp(x))}
-

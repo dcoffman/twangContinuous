@@ -6,13 +6,10 @@ output:
   knitr:::html_vignette:
     toc: true
     fig_caption: yes
-  pdf_document:
-    highlight: null
-    number_sections: yes
 vignette: >
   %\VignetteIndexEntry{Brief Tutorial for twangContinuous}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
 ---
 
 ```{r setup, include=FALSE}
@@ -94,7 +91,7 @@ In the example below, because the values of `verbose`, `shrinkage`, `n.trees`, a
 test.mod <- ps.cont(tss_0 ~ sfs8p_0 + sati_0 + sp_sm_0 
                             + recov_0 + subsgrps_n + treat,
                     data=dat,
-                    n.trees = 5000,
+                    n.trees = 500,
                     shrinkage = 0.01,
                     interaction.depth = 3,
                     verbose = FALSE)
@@ -112,7 +109,7 @@ Having fit the propensity score model, the analyst should perform various diagno
 plot(test.mod, plots="optimize")
 ```
 
-The plot gives the balance measures as a function of the number of iterations in the GBM algorithm, with higher iterations corresponding to more complicated fitted models. If it appears that additional iterations would be likely to result in lower values of the balance statistic, `n.trees` should be increased. However, after a point, additional complexity typically makes the balance worse. The average absolute correlation was minimized at iteration 354 (the exact iteration is known from using the `summary()` function that will be discussed shortly).
+The plot gives the balance measures as a function of the number of iterations in the GBM algorithm, with higher iterations corresponding to more complicated fitted models. If it appears that additional iterations would be likely to result in lower values of the balance statistic, `n.trees` should be increased. However, after a point, additional complexity typically makes the balance worse. The average absolute correlation was minimized at iteration 347 (the exact iteration is known from using the `summary()` function that will be discussed shortly).
 
 Once the generalized propensity scores are estimated, the `twangContinuous` package automatically generates the inverse probablity (or propensity) weights. In the original unweighted data, the continuous exposure is correlated to some degree with each of the confounders but in the weighted data, these correlations should be close to zero, indicating that the continuous exposure and the confounders are unrelated and therefore the relationships between the continuous exposure and the confounders have been broken. If this relationship is broken, then the confounders are no longer confounders (recall the definition of a confounder is a variable that affects, or is related to, both the exposure and the outcome).
 
@@ -132,7 +129,7 @@ w_i^2}.
 
 The ESS is approximately the number of observations from a simple random sample that yields an estimate with sampling variation equal to the sampling variation obtained with the weighted observations. The ESS is an accurate measure of the relative size of the variance of means when the weights are fixed or they are uncorrelated with outcomes. Otherwise the ESS underestimates the effective sample size (Little & Vartivarian, 2004). With propensity score weights, it is rare that weights are uncorrelated with outcomes. Hence the ESS typically gives a lower bound, but it still serves as a useful measure for choosing among alternative models and assessing the overall quality of a model, even if it provides a possibly conservative picture of the loss in precision due to weighting.
 
-The `ess` column in the summary table shows that although the original (i.e., unweighted) data had 4000 cases, the propensity score weighting effectively uses only 3553 cases. While this may seem like a large loss of sample size, this is a byproduct of the degree of confounding in the original data.
+The `ess` column in the summary table shows that although the original (i.e., unweighted) data had 4000 cases, the propensity score weighting effectively uses only 3560 cases. While this may seem like a large loss of sample size, this is a byproduct of the degree of confounding in the original data.
 
 ### Balance Assessment
 
@@ -142,7 +139,7 @@ The function `bal.table` produces a table that shows how well the weights reduce
 bal.table(test.mod, digits = 3)
 ```
 
-The `unw` column gives the unweighted correlation and the `wcor` column gives the weighted correlation between the exposure and each covariate. Thus, the table shows that the correlation between `sati_0` and `tss_0` in the unweighted data was 0.139. After applying the propensity score weights, this correlation has been reduced to -0.012. Ideally, all of the correlations in the weighted data should be below 0.1 (i.e., a small correlation according to Cohen's (1988) convention [see also Zhu et al., 2015]) in absolute value and the closer to zero, the better. Thus, the above table indicates that we have achieved good balance on the covariates.
+The `unw` column gives the unweighted correlation and the `wcor` column gives the weighted correlation between the exposure and each covariate. Thus, the table shows that the correlation between `sati_0` and `tss_0` in the unweighted data was 0.139. After applying the propensity score weights, this correlation has been reduced to -0.011. Ideally, all of the correlations in the weighted data should be below 0.1 (i.e., a small correlation according to Cohen's (1988) convention [see also Zhu et al., 2015]) in absolute value and the closer to zero, the better. Thus, the above table indicates that we have achieved good balance on the covariates.
 
 To visualize how the correlations have decreased (in absolute value) in the weighted sample, use the `plot()` function with the argument `plots="es"`. Each line represents a covariate. A horizontal line 0.1 has been included for reference as we would like to see all the weighted correlations below this line.
 
@@ -175,7 +172,7 @@ outcome.model <- svyglm(sfs8p_3 ~ tss_0, design = design.ps,
 summary(outcome.model)
 ```
 
-The results indicate that for each additional trauma symptom, substance use frequency increases by 0.002, which is not statistically significant, $t=0.04, p = .968$.
+The results indicate that for each additional trauma symptom, substance use frequency increases by 0.003, which is not statistically significant, $t=0.042, p = .967$.
 
 ## References
 
