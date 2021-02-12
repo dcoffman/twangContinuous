@@ -3,7 +3,7 @@ Type: Package
 Date: 2021-02-12
 Title: Toolkit for Weighting and Analysis of Nonequivalent Groups - Continuous Exposures
 Version: 1.0.0
-Authors@R: c(person("Donna", "Coffman", email = "donna.coffman@gmail.com", role=c("aut", "cre"), comment = c(ORCID = "0000-0001-6305-6579"")), person("Brian", "Vegetabile", role = "aut"))
+Authors@R: c(person("Donna", "Coffman", email = "donna.coffman@gmail.com", role=c("aut", "cre"), comment = c(ORCID = "0000-0001-6305-6579")), person("Brian", "Vegetabile", role = c("aut")))
 Description: Provides functions for propensity score
         estimation and weighting for continuous exposures.
 License: GPL (>= 2)
