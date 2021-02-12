@@ -3,7 +3,6 @@
 #' @param x A `ps.cont` object
 #' @param digits Number of digits to round to
 #' @param ... Additional arguments.
-#' @method bal.table ps.cont
 #' @export
 
 bal.table <-

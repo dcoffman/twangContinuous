@@ -4,7 +4,7 @@
 \alias{bal.table}
 \title{Compute the balance table for a ps.cont object.}
 \usage{
-\method{bal.table}{ps.cont}(x, digits = 3, ...)
+bal.table(x, digits = 3, ...)
 }
 \arguments{
 \item{x}{A `ps.cont` object}
