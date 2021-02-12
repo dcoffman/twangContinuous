@@ -72,7 +72,7 @@
 #'
 #' @references Zhu, Y., Coffman, D. L., & Ghosh, D. (2015). A boosting algorithm for
 #' estimating generalized propensity scores with continuous treatments.
-#' *Journal of Causal Inference*, 3(1), 25-40. doi:10.1515/jci-2014-0022
+#' *Journal of Causal Inference*, 3(1), 25-40. <doi:10.1515/jci-2014-0022>
 #'
 #' @export
 
