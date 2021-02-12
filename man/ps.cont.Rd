@@ -108,5 +108,3 @@ estimating generalized propensity scores with continuous treatments.
 \seealso{
 [gbm], [plot.ps.cont], [bal.table]
 }
-\keyword{models,}
-\keyword{multivariate}

@@ -68,7 +68,6 @@
 #'  * `data` Data as specified in the `data` argument.
 #'
 #' @seealso [gbm], [plot.ps.cont], [bal.table]
-#' @keywords models, multivariate
 #'
 #' @references Zhu, Y., Coffman, D. L., & Ghosh, D. (2015). A boosting algorithm for
 #' estimating generalized propensity scores with continuous treatments.
