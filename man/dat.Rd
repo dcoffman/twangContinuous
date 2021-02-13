@@ -5,7 +5,7 @@
 A synthetic data set that was derived from a large scale observational study on youth in substance use treatment.
 }
 \description{
-A subset of measures from the Global Appraisal of Individual Needs biopsychosocial assessment instrument (GAIN) (Dennis, Titus et al. 2003) from sites that adminstered two different types of substance use disorder treatments (treatment “A” and treatment “B”). The Center for Substance Abuse Treatment (CSAT) funded the sites that administered these two SUD treatments. This dataset consists of 4,000 adolescents, 2,000 in each treatment group. The dataset includes substance use and mental health variables.
+A subset of measures from the Global Appraisal of Individual Needs biopsychosocial assessment instrument (GAIN) (Dennis, Titus et al. 2003) from sites that administered two different types of substance use disorder treatments (treatment “A” and treatment “B”). The Center for Substance Abuse Treatment (CSAT) funded the sites that administered these two SUD treatments. This dataset consists of 4,000 adolescents, 2,000 in each treatment group. The dataset includes substance use and mental health variables.
 }
 \usage{data("dat")}
 \format{
