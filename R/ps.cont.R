@@ -30,48 +30,67 @@
 #' @param ... Additional arguments that are passed to ps function.
 #'
 #' @return Returns an object of class `ps.cont`, a list containing
+#'
 #'   * `gbm.obj` The returned [gbm] object.
+#'
 #'   * `treat` The treatment variable.
+#'
 #'   * `desc` A list containing balance tables for each method selected in
 #'     `stop.methods`. Includes a component for the unweighted
 #'     analysis names \dQuote{unw}. Each `desc` component includes
 #'     a list with the following components
+#'
 #'     - `ess` The effective sample size.
+#'
 #'     - `n` The number of subjects.
+#'
 #'     - `max.wcor` The largest weighted correlation across the covariates.
+#'
 #'     - `mean.wcor` The average weighted correlation across the covariates.
+#'
 #'     - `rms.wcor` The root mean square of the absolute weighted correlations across the
 #'        covariates.
+#'
 #'     - `bal.tab` a (potentially large) table summarizing the quality of the
 #'       weights for balancing the distribution of the pretreatment covariates.
-#'       This table is best extracted using the
-#'       [bal.table] method. See the help for [bal.table] for details.
+#'       This table is best extracted using the [bal.table] method.
+#'       See the help for [bal.table] for details.
+#'
 #'     - `n.trees` The estimated optimal number of [gbm]
-#'       iterations to optimize the loss function for the associated
-#'        `stop.methods`.
-#'  * `ps.den` a data frame containing the estimated propensity scores. Each
-#'       column is associated with one of the methods selected in `stop.methods`.
-#'  * `ps.num` .
-#'  * `w` a data frame containing the propensity score weights. Each
-#'       column is associated with one of the methods selected in `stop.methods`.
-#'       If sampling weights are given then these are incorporated into these weights.
+#'       iterations to optimize the loss function.
+#'
+#'  * `ps.den` Denominator values for the propensity score weights.
+#'
+#'  * `ps.num` Numerator values for the propensity score weights.
+#'
+#'  * `w` The propensity score weights. If sampling weights are given then these
+#'        are incorporated into these weights.
+#'
 #'  * `datestamp` Records the date of the analysis.
+#'
 #'  * `parameters` Saves the `ps.cont` call.
+#'
 #'  * `alerts` Text containing any warnings accumulated during the estimation.
+#'
 #'  * `iters` A sequence of iterations used in the GBM fits used by `plot` function.
-#'  * `balance` The balance measures for the pretreatment covariates used in plotting,
-#'    with a column for each `stop.method`.
+#'
+#'  * `balance` The balance measures for the pretreatment covariates used in plotting.
+#'
 #'  * `sampw` The sampling weights as specified in the `sampw` argument.
-#'  * `preds` .
-#'  * `covariates` .
+#'
+#'  * `preds` Predicted values based on the propensity score model.
+#'
+#'  * `covariates` Data frame containing the covariates used in the propensity score model.
+#'
 #'  * `n.trees` Maximum number of trees considered in GBM fit.
+#'
 #'  * `data` Data as specified in the `data` argument.
 #'
 #' @seealso [gbm], [plot.ps.cont], [bal.table]
 #'
 #' @references Zhu, Y., Coffman, D. L., & Ghosh, D. (2015). A boosting algorithm for
 #' estimating generalized propensity scores with continuous treatments.
-#' *Journal of Causal Inference*, 3(1), 25-40. <doi:10.1515/jci-2014-0022>
+#' *Journal of Causal Inference*, 3(1), 25-40. \doi{doi:10.1515/jci-2014-0022}
 #'
 #' @export
 

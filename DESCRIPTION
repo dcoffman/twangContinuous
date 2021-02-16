@@ -1,14 +1,17 @@
 Package: twangContinuous
 Type: Package
-Date: 2021-02-12
+Date: 2021-02-15
 Title: Toolkit for Weighting and Analysis of Nonequivalent Groups - Continuous Exposures
 Version: 1.0.0
 Authors@R: c(
         person("Donna", "Coffman", email = "donna.coffman@gmail.com", 
         role=c("aut", "cre"), comment = c(ORCID = "0000-0001-6305-6579")), 
-        person("Brian", "Vegetabile", role = c("aut")))
+        person("Brian", "Vegetabile", role = c("ctb")))
 Description: Provides functions for propensity score
-        estimation and weighting for continuous exposures.
+        estimation and weighting for continuous exposures as described in Zhu, Y., 
+        Coffman, D. L., & Ghosh, D. (2015). A boosting algorithm for
+        estimating generalized propensity scores with continuous treatments.
+        Journal of Causal Inference, 3(1), 25-40. <doi:10.1515/jci-2014-0022>.
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true

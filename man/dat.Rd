@@ -72,7 +72,7 @@ A subset of measures from the Global Appraisal of Individual Needs biopsychosoci
   }
 }
 \source{
-Diamond, G., Godley, S. H., Liddle, H. A., Sampl, S., Webb, C., Tims, F. M., & Meyers, R. (2002). Five outpatient treatment models for adolescent marijuana use: a description of the Cannabis Youth Treatment Interventions. *Addiction*, 97, 70-83.
+Diamond, G., Godley, S. H., Liddle, H. A., Sampl, S., Webb, C., Tims, F. M., & Meyers, R. (2002). Five outpatient treatment models for adolescent marijuana use: a description of the Cannabis Youth Treatment Interventions. Addiction, 97, 70-83.
 }
 \references{
 Diamond, G., Godley, S. H., Liddle, H. A., Sampl, S., Webb, C., Tims, F. M., & Meyers, R. (2002). Five outpatient treatment models for adolescent marijuana use: a description of the Cannabis Youth Treatment Interventions. Addiction, 97, 70-83.
