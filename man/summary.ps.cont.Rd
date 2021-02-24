@@ -11,6 +11,24 @@
 
 \item{...}{Additional arguments.}
 }
+\value{
+*`n` The number of subjects.
+ *`ess` The effective sample size.
+ *`max.wcor` The largest weighted correlation across the covariates.
+ *`mean.wcor` The average weighted correlation across the covariates.
+ *`rms.wcor` The root mean square of the absolute weighted correlations across
+       the covariates.
+ *`iter` The estimated optimal number of [gbm] iterations to optimize the
+       loss function.
+}
 \description{
-Displays a useful description of a `ps.cont` object.
+Computes a short summary table describing the size of the dataset and the
+quality of the propensity score weights about a stored `ps.cont` object.
+}
+\examples{
+   \dontrun{summary(test.mod)}
+
+}
+\seealso{
+[ps.cont]
 }

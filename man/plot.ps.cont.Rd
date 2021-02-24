@@ -7,7 +7,7 @@
 \method{plot}{ps.cont}(x, plots = "optimize", subset = NULL, ...)
 }
 \arguments{
-\item{x}{ps.cont object}
+\item{x}{`ps.cont` object}
 
 \item{plots}{An indicator of which type of plot is desired. The options are
 * `"optimize"` A plot of the balance criteria as a function of the GBM
@@ -16,13 +16,20 @@
   variables before and after weighting}
 
 \item{subset}{Used to restrict which of the `stop.method`s will be used
-in the figure. For example `subset = c(1,3)` would indicate that the
-first and third `stop.method`s (in alphabetical order of those specified
-in the original call to the ps.cont function) should be included in the
-figure.}
+in the figure.}
 
 \item{...}{Additional arguments.}
 }
+\value{
+Returns diagnostic plots for `ps.cont` objects.
+}
 \description{
-Plot the `ps.cont` object.
+This function produces a collection of diagnostic plots for `ps.cont` objects.
+}
+\examples{
+   \dontrun{plot(test.mod)}
+
+}
+\seealso{
+[ps.cont]
 }

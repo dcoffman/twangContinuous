@@ -53,7 +53,9 @@ across pretreatment variables. Current options are `wcor`, the weighted Pearson
 correlation, summarized by using the mean across the pretreatment variables.
 Default: `wcor`.}
 
-\item{treat.as.cont}{.}
+\item{treat.as.cont}{Used as a check on whether the exposure has greater than
+five levels. If it does not and treat.as.cont=FALSE, an error will be
+produced. Default: FALSE}
 
 \item{...}{Additional arguments that are passed to ps function.}
 }
@@ -117,7 +119,12 @@ Returns an object of class `ps.cont`, a list containing
 }
 \description{
 `ps.cont` calculates propensity scores using gradient boosted
-regression and provides diagnoses the resulting propensity scores
+regression and provides diagnostics of the resulting propensity scores.
+}
+\examples{
+  \dontrun{test.mod <- ps.cont(tss_0 ~ sfs8p_0 + sati_0 + sp_sm_0
+          + recov_0 + subsgrps_n + treat, data=dat}
+
 }
 \references{
 Zhu, Y., Coffman, D. L., & Ghosh, D. (2015). A boosting algorithm for
@@ -125,5 +132,5 @@ estimating generalized propensity scores with continuous treatments.
 *Journal of Causal Inference*, 3(1), 25-40. \doi{doi:10.1515/jci-2014-0022}
 }
 \seealso{
-[gbm], [plot.ps.cont], [bal.table]
+[gbm], [plot.ps.cont], [bal.table], [summary.ps.cont]
 }

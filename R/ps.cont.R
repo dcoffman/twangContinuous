@@ -1,7 +1,7 @@
 #' Gradient boosted propensity score estimation for continuous exposures
 #'
 #' `ps.cont` calculates propensity scores using gradient boosted
-#' regression and provides diagnoses the resulting propensity scores
+#' regression and provides diagnostics of the resulting propensity scores.
 #'
 #' @param formula An object of class [formula]: a symbolic
 #'   description of the propensity score model to be fit with the treatment
@@ -26,7 +26,9 @@
 #'   correlation, summarized by using the mean across the pretreatment variables.
 #'   Default: `wcor`.
 #' @param sampw Optional sampling weights.
-#' @param treat.as.cont .
+#' @param treat.as.cont Used as a check on whether the exposure has greater than
+#'    five levels. If it does not and treat.as.cont=FALSE, an error will be
+#'    produced. Default: FALSE
 #' @param ... Additional arguments that are passed to ps function.
 #'
 #' @return Returns an object of class `ps.cont`, a list containing
@@ -86,7 +88,11 @@
 #'
 #'  * `data` Data as specified in the `data` argument.
 #'
-#' @seealso [gbm], [plot.ps.cont], [bal.table]
+#' @examples
+#'   \dontrun{test.mod <- ps.cont(tss_0 ~ sfs8p_0 + sati_0 + sp_sm_0
+#'           + recov_0 + subsgrps_n + treat, data=dat}
+#'
+#' @seealso [gbm], [plot.ps.cont], [bal.table], [summary.ps.cont]
 #'
 #' @references Zhu, Y., Coffman, D. L., & Ghosh, D. (2015). A boosting algorithm for
 #' estimating generalized propensity scores with continuous treatments.

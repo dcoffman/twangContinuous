@@ -2,17 +2,31 @@
 % Please edit documentation in R/bal.table.R
 \name{bal.table}
 \alias{bal.table}
-\title{Compute the balance table for a ps.cont object.}
+\title{Compute the balance table.}
 \usage{
 bal.table(x, digits = 3, ...)
 }
 \arguments{
 \item{x}{A `ps.cont` object}
 
-\item{digits}{Number of digits to round to}
+\item{digits}{Number of digits to round to. Default: 3}
 
 \item{...}{Additional arguments.}
 }
+\value{
+Returns a data frame containing the balance information.
+    * `unw` The unweighted correlation between the exposure and each covariate.
+    * `wcor` The weighted correlation between the exposure and each covariate.
+}
 \description{
-Compute the balance table for a ps.cont object.
+`bal.table` is a generic function for extracting balance tables from
+ `ps.cont` objects, one for an unweighted analysis and one for the weighted
+ analysis.
+}
+\examples{
+  \dontrun{bal.table(test.mod)}
+
+}
+\seealso{
+[ps.cont]
 }
