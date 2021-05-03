@@ -74,7 +74,7 @@ The function `ps.cont()` is the main function in `twangContinuous`. Enter the fo
 
 The function includes several optional arguments: `n.trees`, `interaction.depth`, and `shrinkage` are parameters for the `gbm` model.
 
-`n.trees` - the maximum number of iterations that `gbm` will run. `ps.cont()` will issue a warning if the estimated optimal number of iterations is too close to the bound selected in this argument because it indicates that balance may improve if more complex models (i.e., those with more trees) are considered. The user should increase `n.trees` or decrease `shrinkage` (see below) if this warning appears. The default number of trees is set to 10000.
+`n.trees` - the maximum number of iterations that `gbm` will run. `ps.cont()` will issue a warning if the estimated optimal number of iterations is too close to the bound selected in this argument because it indicates that balance may improve if more complex models (i.e., those with more trees) are considered. The user should increase `n.trees` or increase `shrinkage` (see below) if this warning appears. The default number of trees is set to 10000.
 
 `interaction.depth` - controls the level of interactions allowed in the GBM. The default is 3 (i.e., up to three-way interactions among the covariates are allowed) and we typically use the default in our analyses.
 
