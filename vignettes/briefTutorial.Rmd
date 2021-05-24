@@ -46,7 +46,7 @@ Prior to use, GBM requires specification of a stopping criterion. For continuous
 
 ## Using the package
 
-If you have not already done so, install \texttt{twangContinuous} from CRAN by typing \texttt{install.packages("twangContinuous")}. Alternatively, you can install development versions directly from GitHub by first installing and loading the `devtools` package and using the following code.
+If you have not already done so, install `twangContinuous` from CRAN by typing `install.packages("twangContinuous")`. Alternatively, you can install development versions directly from GitHub by first installing and loading the `devtools` package and using the following code.
 
 ```{r, results='show', purl=FALSE, eval=FALSE}
 library(devtools) 
