@@ -132,5 +132,5 @@ estimating generalized propensity scores with continuous treatments.
 *Journal of Causal Inference*, 3(1), 25-40. \doi{doi:10.1515/jci-2014-0022}
 }
 \seealso{
-[gbm], [plot.ps.cont], [bal.table], [summary.ps.cont]
+\code{\link{gbm}}, \code{\link{plot.ps.cont}}, \code{\link{bal.table}}, \code{\link{summary.ps.cont}}
 }

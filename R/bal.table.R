@@ -15,7 +15,7 @@
 #' @examples
 #'   \dontrun{bal.table(test.mod)}
 #'
-#' @seealso [ps.cont]
+#' @seealso \code{\link{ps.cont}}
 #'
 #' @export
 

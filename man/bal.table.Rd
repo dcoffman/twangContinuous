@@ -28,5 +28,5 @@ Returns a data frame containing the balance information.
 
 }
 \seealso{
-[ps.cont]
+\code{\link{ps.cont}}
 }

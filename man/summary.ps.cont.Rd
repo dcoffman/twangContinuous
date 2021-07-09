@@ -30,5 +30,5 @@ quality of the propensity score weights about a stored `ps.cont` object.
 
 }
 \seealso{
-[ps.cont]
+\code{\link{ps.cont}}
 }

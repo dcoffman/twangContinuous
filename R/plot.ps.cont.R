@@ -17,7 +17,7 @@
 #' @examples
 #'    \dontrun{plot(test.mod)}
 #'
-#' @seealso [ps.cont]
+#' @seealso \code{\link{ps.cont}}
 #'
 #' @method plot ps.cont
 #' @export

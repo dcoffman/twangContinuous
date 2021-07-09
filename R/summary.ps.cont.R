@@ -19,7 +19,7 @@
 #' @examples
 #'    \dontrun{summary(test.mod)}
 #'
-#' @seealso [ps.cont]
+#' @seealso \code{\link{ps.cont}}
 #'
 #' @method summary ps.cont
 #' @export

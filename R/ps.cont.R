@@ -92,7 +92,7 @@
 #'   \dontrun{test.mod <- ps.cont(tss_0 ~ sfs8p_0 + sati_0 + sp_sm_0
 #'           + recov_0 + subsgrps_n + treat, data=dat}
 #'
-#' @seealso [gbm], [plot.ps.cont], [bal.table], [summary.ps.cont]
+#' @seealso \code{\link{gbm}}, \code{\link{plot.ps.cont}}, \code{\link{bal.table}}, \code{\link{summary.ps.cont}}
 #'
 #' @references Zhu, Y., Coffman, D. L., & Ghosh, D. (2015). A boosting algorithm for
 #' estimating generalized propensity scores with continuous treatments.

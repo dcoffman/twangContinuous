@@ -31,5 +31,5 @@ This function produces a collection of diagnostic plots for `ps.cont` objects.
 
 }
 \seealso{
-[ps.cont]
+\code{\link{ps.cont}}
 }
